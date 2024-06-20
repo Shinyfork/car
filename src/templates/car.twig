@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Autos und Parkplätze</title>
+</head>
+<body>
+    <h1>Autos</h1>
+    <ul>
+        {% for auto in autos %}
+            <li>
+                ID: {{ auto.id }}, Marke: {{ auto.make }}, Modell: {{ auto.model }}, Geparkt bei: {{ auto.location.name }}
+                <form method="POST" action="/delete-car" style="display:inline;">
+                    <input type="hidden" name="car_id" value="{{ auto.id }}">
+                    <button type="submit">Löschen</button>
+                </form>
+            </li>
+        {% endfor %}
+    </ul>
+
+    <h1>Parkplätze</h1>
+    <ul>
+        {% for parkplatz in parkplätze %}
+            <li>
+                ID: {{ parkplatz.id }}, Name: {{ parkplatz.name }}
+                <form method="POST" action="/delete-parking" style="display:inline;">
+                    <input type="hidden" name="parking_location_id" value="{{ parkplatz.id }}">
+                    <button type="submit">Löschen</button>
+                </form>
+            </li>
+        {% endfor %}
+    </ul>
+
+    <h2>Auto Hinzufügen</h2>
+    <form method="POST" action="/add-car">
+        <label for="make">Marke:</label>
+        <input type="text" id="make" name="make">
+        <label for="model">Modell:</label>
+        <input type="text" id="model" name="model">
+        <label for="parking_location_id">Parkplatz ID:</label>
+        <input type="number" id="parking_location_id" name="parking_location_id">
+        <button type="submit">Auto Hinzufügen</button>
+    </form>
+
+    <h2>Parkplatz Hinzufügen</h2>
+    <form method="POST" action="/add-parking">
+        <label for="name">Parkplatz Name:</label>
+        <input type="text" id="name" name="name">
+        <button type="submit">Parkplatz Hinzufügen</button>
+    </form>
+
+    <h2>Parkplatz Zuweisen</h2>
+    <form method="POST" action="/assign-parking">
+        <label for="car_make">Auto Marke:</label>
+        <input type="text" id="car_make" name="car_make">
+        <label for="parking_location_name">Parkplatz Name:</label>
+        <input type="text" id="parking_location_name" name="parking_location_name">
+        <button type="submit">Parkplatz Zuweisen</button>
+    </form>
+</body>
+</html>
